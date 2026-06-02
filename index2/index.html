@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICB — Global payments. Built for modern Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <!-- GNB (fixed) -->
+  <header class="gnb">
+    <div class="gnb-top">
+      <a href="#" class="gnb-logo" aria-label="ICB Home">
+        <img src="./assets/ICB_logo.svg" alt="ICB" />
+      </a>
+
+      <nav class="gnb-menu" aria-label="Primary">
+        <a href="#">PERSONAL</a>
+        <a href="#" class="is-active">BUSINESS</a>
+        <a href="#">COMPANY</a>
+      </nav>
+
+      <div class="gnb-actions">
+        <button type="button" class="gnb-lang">
+          EN
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4.2 6.4 8 10.2l3.8-3.8" stroke="#717274" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a href="#" class="gnb-contact">CONTACT</a>
+      </div>
+    </div>
+
+    <div class="gnb-sub">
+      <ul>
+        <li><a href="#" class="is-current">Cross border Payment</a></li>
+        <li><a href="#">BtoB Settlement</a></li>
+        <li><a href="#">Prepaid card</a></li>
+        <li><a href="#">Payment link</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="hero" data-name="Hero">
+    <div class="hero-media" aria-hidden="true">
+      <video
+        class="hero-video"
+        src="./assets/globe.mp4"
+        autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="hero-canvas">
+      <div class="hero-reveal" data-name="Hero Title EN">
+        <h1 class="hero-title">
+          <span class="hero-line"><span class="hero-line-inner">Global payments.</span></span>
+          <span class="hero-line"><span class="hero-line-inner" style="--delay:.14s">Built for modern Business</span></span>
+        </h1>
+        <p class="hero-sub">
+          <span class="hero-line"><span class="hero-line-inner" style="--delay:.36s">Fast, compliant, and scalable remittance infrastructure designed for modern global payments. Send, receive, and manage international transfers with confidence.</span></span>
+        </p>
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="hero-scroll-text">SCROLL</span>
+        <span class="hero-scroll-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 001: Seamless / Payments / Boundless Growth + photo -->
+  <section id="section001" class="section001" data-name="section001">
+    <div class="s1-inner">
+      <div class="intro-lines-wrap">
+        <div class="intro-line" data-line="0">
+          <img src="./assets/icon-globe.svg" alt="" class="intro-icon" aria-hidden="true" />
+          <span class="intro-line-text">Seamless</span>
+        </div>
+        <div class="intro-line" data-line="1">
+          <img src="./assets/icon-credit-card.svg" alt="" class="intro-icon" aria-hidden="true" />
+          <span class="intro-line-text">Payments</span>
+        </div>
+        <div class="intro-line" data-line="2">
+          <img src="./assets/icon-loop.svg" alt="" class="intro-icon" aria-hidden="true" />
+          <span class="intro-line-text">Boundless Growth</span>
+        </div>
+      </div>
+
+      <p class="s1-sub reveal-up">
+        Driving secure and efficient cross-border transactions<br />for a connected world.
+      </p>
+
+      <div class="s1-photo reveal-up" data-name="img-people">
+        <img src="./assets/img-people.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 002: One Platform. Every Payment. (4 image cards) -->
+  <section id="section002" class="section002" data-name="section002">
+    <div class="s2-inner">
+      <span class="pill pill-orange reveal-up">Business Services</span>
+      <h2 class="s2-title section-title-reveal">
+        <span class="hero-line"><span class="hero-line-inner">One Platform.</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.14s">Every Payment.</span></span>
+      </h2>
+
+      <div class="s2-cards">
+        <article class="s2-card" data-name="card01" style="--s2c-delay:0s">
+          <div class="s2-card-img">
+            <img src="./assets/111.png" alt="" />
+          </div>
+          <h3 class="s2-card-title">Cross-Border Payment</h3>
+          <p class="s2-card-desc">Integrated global payment infrastructure.</p>
+        </article>
+
+        <article class="s2-card" data-name="card02" style="--s2c-delay:0.15s">
+          <div class="s2-card-img">
+            <img src="./assets/222.png" alt="" />
+          </div>
+          <h3 class="s2-card-title">B2B Settlement</h3>
+          <p class="s2-card-desc">Fast and accurate B2B trade settlement.</p>
+        </article>
+
+        <article class="s2-card" data-name="card03" style="--s2c-delay:0.30s">
+          <div class="s2-card-img">
+            <img src="./assets/333.png" alt="" />
+          </div>
+          <h3 class="s2-card-title">Payment Link</h3>
+          <p class="s2-card-desc">Simple remote payment via shareable links.</p>
+        </article>
+
+        <article class="s2-card" data-name="card04" style="--s2c-delay:0.45s">
+          <div class="s2-card-img">
+            <img src="./assets/444.png" alt="" />
+          </div>
+          <h3 class="s2-card-title">Prepaid Card</h3>
+          <p class="s2-card-desc">Customized corporate prepaid solutions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 003: Trust Indicators -->
+  <section id="section003" class="section003" data-name="section003">
+    <div class="s3-inner">
+      <span class="pill pill-orange reveal-up">Trust Indicators</span>
+
+      <div class="count-stack">
+        <div class="count-reveal">
+          <p class="count-num">
+            <span class="reveal-clip"><span class="reveal-char">1.5B USD</span></span>
+          </p>
+          <p class="count-lbl">
+            <span class="reveal-clip"><span class="reveal-char" style="--delay:.10s">Annual Transaction Volume</span></span>
+          </p>
+        </div>
+        <div class="count-reveal">
+          <p class="count-num">
+            <span class="reveal-clip"><span class="reveal-char">2.1M</span></span>
+          </p>
+          <p class="count-lbl">
+            <span class="reveal-clip"><span class="reveal-char" style="--delay:.10s">QR Payment Locations</span></span>
+          </p>
+        </div>
+        <div class="count-reveal">
+          <p class="count-num">
+            <span class="reveal-clip"><span class="reveal-char">3M+</span></span>
+          </p>
+          <p class="count-lbl">
+            <span class="reveal-clip"><span class="reveal-char" style="--delay:.10s">Directly Contracted Merchants</span></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="count-row">
+        <div class="count-reveal count-row-item">
+          <span class="count-big">
+            <span class="reveal-clip"><span class="reveal-char">18</span></span>
+          </span>
+          <span class="count-row-lbl">
+            <span class="reveal-clip"><span class="reveal-char" style="--delay:.10s">Countries with</span></span>
+          </span>
+        </div>
+        <div class="count-reveal count-row-item">
+          <span class="count-big">
+            <span class="reveal-clip"><span class="reveal-char">35</span></span>
+          </span>
+          <span class="count-row-lbl">
+            <span class="reveal-clip"><span class="reveal-char" style="--delay:.10s">Global Payment Methods</span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 004: Electronic Financial Licenses -->
+  <section id="section004" class="section004 section-reveal" data-name="section004">
+    <div class="s4-inner">
+      <span class="pill pill-orange">Licenses &amp; Patents</span>
+      <h2 class="s4-title">
+        <span class="hero-line"><span class="hero-line-inner">Electronic Financial Licenses</span></span>
+      </h2>
+      <p class="s4-sub">
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.22s">Licensed to power secure global payments</span></span>
+      </p>
+      <div class="embed-carousel embed-carousel--v1" data-carousel="1"></div>
+      <p class="scroll-down">Scroll Down ↓</p>
+    </div>
+  </section>
+
+  <!-- Section 005: Intellectual Property & Patents -->
+  <section id="section005" class="section005 section-reveal" data-name="section005">
+    <div class="s5-inner">
+      <h2 class="s5-title">
+        <span class="hero-line"><span class="hero-line-inner">Intellectual Property &amp; Patents</span></span>
+      </h2>
+      <p class="s5-sub">
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.22s">Patented technology for smarter digital commerce</span></span>
+      </p>
+      <div class="embed-carousel embed-carousel--v2" data-carousel="2"></div>
+      <p class="scroll-down">Scroll Down ↓</p>
+    </div>
+  </section>
+
+  <!-- Section 007: Personal Remittance -->
+  <section id="section007" class="section007" data-name="section007">
+    <div class="s7-media" data-name="video2" aria-hidden="true">
+      <video class="s7-video" data-name="debunk-video2" src="./assets/debunk-video2.mp4" autoplay loop muted playsinline></video>
+      <div class="s7-color"></div>
+    </div>
+
+    <div class="s7-inner">
+      <span class="pill pill-red reveal-up">Personal</span>
+      <p class="s7-eyebrow reveal-up">Fast · Secure· Simple</p>
+      <h2 class="s7-title reveal-up">Remittance</h2>
+      <p class="s7-desc reveal-up">Fast and reliable international transfers</p>
+
+      <div class="s7-stores">
+        <a href="#" class="s7-store reveal-up" aria-label="Google Play">
+          <img class="s7-store-gray"  src="./assets/Google-gray.svg" alt="" aria-hidden="true" />
+          <img class="s7-store-color" src="./assets/Google.svg"      alt="Google Play" />
+        </a>
+        <a href="#" class="s7-store reveal-up" aria-label="App Store">
+          <img class="s7-store-gray"  src="./assets/Apple-gray.svg" alt="" aria-hidden="true" />
+          <img class="s7-store-color" src="./assets/Apple.svg"      alt="App Store" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 008: Footer -->
+  <footer id="section008" class="section008" data-name="section008">
+    <div class="s8-inner">
+      <div class="s8-cols">
+        <a href="#" class="s8-logo" aria-label="ICB Home">
+          <img src="./assets/icb-logo-color.png" alt="ICB" />
+        </a>
+        <div class="s8-col">
+          <p class="s8-h">Personal</p>
+          <ul>
+            <li><a href="#">Remittance</a></li>
+          </ul>
+        </div>
+        <div class="s8-col">
+          <p class="s8-h">Business</p>
+          <ul>
+            <li><a href="#">Cross-Border Payment</a></li>
+            <li><a href="#">B2B Settlement</a></li>
+            <li><a href="#">Prepaid Card</a></li>
+            <li><a href="#">Payment Link</a></li>
+          </ul>
+        </div>
+        <div class="s8-col">
+          <p class="s8-h">Contact</p>
+        </div>
+      </div>
+
+      <hr class="s8-divider" />
+      <p class="s8-copy">© 2026 ICB. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

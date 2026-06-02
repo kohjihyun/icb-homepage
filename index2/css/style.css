@@ -1,0 +1,1024 @@
+/* ================================================================
+   index2 — Figma "home2" 프레임 기반
+   - 각 섹션 sticky 효과 제거
+   - GNB 상단 고정
+   - 카드 캐러셀(section004/005) 카드 크기·색상은 index.html과 동일
+   - 모션은 index.html 패턴(jeton-style clip + translateY) 재사용
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg, video { display: block; max-width: 100%; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:root {
+  --icb-gray-200: #a8a8a9;
+  --icb-gray-300: #8c8d8e;
+  --icb-gray-400: #717274;
+  --icb-gray-500: #58595b;
+  --icb-gray-600: #494a4c;
+  --icb-gray-700: #3b3c3d;
+  --redorange-300: #fe875e;
+  --redorange-500: #ea4109;
+  --red-300: #fc765e;
+}
+
+/* ============================================================
+   GNB (fixed)
+============================================================ */
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 1px solid rgba(212, 212, 212, 0.3);
+}
+
+.gnb-top {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px 0 80px;
+  background: rgba(230, 223, 213, 0.7);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+}
+
+.gnb-logo { display: block; padding-left: 0; }
+.gnb-logo img { width: 80px; height: 30px; object-fit: contain; }
+
+.gnb-menu {
+  display: flex;
+  gap: 56px;
+  font-size: 16px;
+  color: var(--icb-gray-500);
+  letter-spacing: 0.32px;
+}
+
+.gnb-menu a {
+  font-weight: 400;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.gnb-menu a:hover { opacity: 0.7; }
+.gnb-menu a.is-active { font-weight: 500; color: var(--icb-gray-500); }
+
+.gnb-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.gnb-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px 5px 16px;
+  border: 1px solid var(--icb-gray-200);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--icb-gray-400);
+  cursor: pointer;
+}
+
+.gnb-contact {
+  background: #f5f0e8;
+  color: var(--icb-gray-400);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.12px;
+}
+
+.gnb-sub {
+  height: 64px;
+  background: rgba(241, 241, 241, 0.5);
+  border-top: 1px solid rgba(212, 212, 212, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform-origin: top;
+  transition:
+    height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: height, opacity, transform;
+}
+
+/* 스크롤 내려갈 때 GNB-sub 숨김 */
+.gnb.is-scrolled .gnb-sub {
+  height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  border-top-color: transparent;
+}
+
+.gnb-sub ul {
+  display: flex;
+  gap: 48px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.gnb-sub a {
+  color: #666;
+  letter-spacing: -0.26px;
+  transition: color 0.2s ease;
+}
+
+.gnb-sub a:hover,
+.gnb-sub a.is-current { color: var(--icb-gray-500); }
+
+/* ============================================================
+   Hero
+============================================================ */
+/* Hero — 반응형: 너비 비례로 높이 조절 (Figma 1440:816 ≈ 0.5667 비율)
+   작은 화면에서도 텍스트가 들어갈 수 있도록 min-height 보장 */
+.hero {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 56.67vw, 816px);
+  background: #ddd2c9;
+  overflow: hidden;
+  padding-top: 144px; /* GNB 높이 보정 */
+}
+
+/* Figma globe 프레임 — 반응형 풀-bleed:
+   프레임이 화면 너비를 꽉 채우고, 비디오는 프레임의 left:0(x축 0)에서 시작.
+   비디오 높이는 부모 높이에 맞춰 잘리는 영역으로 유지 (object-fit: cover) */
+.hero-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50px; /* globe 영상을 50px 아래로 내림 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center; /* x축 0에서 시작, 높이는 잘림으로 유지 */
+  pointer-events: none;
+  backface-visibility: hidden;
+  /* Figma 적용된 비디오처럼 확대 — 왼쪽 기준으로 zoom-in, 잘림은 자연스럽게 */
+  transform: scale(1.2);
+  transform-origin: left center;
+}
+
+.hero-canvas {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(40px, 7vw, 100px) clamp(24px, 5.5vw, 80px) 0;
+}
+
+.hero-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: min(588px, 90%);
+  color: #4d4d4d;
+  will-change: transform;
+}
+
+.hero-title {
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 200;
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+
+.hero-sub {
+  font-family: 'Pretendard', 'Inter', sans-serif;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.4;
+  font-weight: 400;
+  opacity: 0.9;
+  max-width: 475px;
+  margin: 0;
+}
+
+/* jeton-style reveal: clip + translateY */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.05em;
+}
+
+.hero-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+
+.hero-reveal.is-visible .hero-line-inner,
+.section-reveal.is-visible .hero-line-inner,
+.section-title-reveal.is-visible .hero-line-inner {
+  transform: translateY(0);
+}
+
+/* hero scroll indicator */
+.hero-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 80px; /* SCROLL 위치 — 130px에서 50px 내림 */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 52px;
+}
+
+.hero-scroll-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--icb-gray-300);
+  animation: heroScrollTextFloat 2s ease-in-out infinite;
+}
+
+.hero-scroll-line {
+  display: block;
+  width: 2px;
+  height: 29px;
+  margin-top: 6px;
+  background: linear-gradient(to bottom, #8c8d8e, rgba(0,0,0,0));
+  border-radius: 9999px;
+  animation: heroScrollLineFloat 2.1s ease-in-out infinite;
+}
+
+@keyframes heroScrollTextFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+@keyframes heroScrollLineFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+
+/* ============================================================
+   Section 001 — Seamless / Payments / Boundless Growth + photo
+============================================================ */
+.section001 {
+  position: relative;
+  background: #fff;
+  padding: clamp(64px, 10vw, 120px) 0 clamp(40px, 6vw, 80px);
+}
+
+.s1-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5.5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro-lines-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 6vw, 80px);
+  width: 100%;
+  max-width: 817px;
+}
+
+.intro-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 40px);
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16,1,0.3,1) var(--rd, 0s),
+    transform 0.9s cubic-bezier(0.16,1,0.3,1) var(--rd, 0s);
+  will-change: opacity, transform;
+  flex-wrap: wrap;
+}
+
+.intro-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro-icon {
+  width: clamp(40px, 4.5vw, 64px);
+  height: clamp(40px, 4.5vw, 64px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.intro-line-text {
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: var(--icb-gray-600);
+  line-height: 1.2;
+}
+
+.s1-sub {
+  margin-top: clamp(32px, 5vw, 64px);
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--icb-gray-700);
+  text-align: center;
+  max-width: 476px;
+  padding: 0 16px;
+}
+
+.s1-photo {
+  margin-top: clamp(40px, 5vw, 64px);
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 613;
+  border-radius: clamp(20px, 3vw, 40px);
+  overflow: hidden;
+}
+
+.s1-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* ============================================================
+   Section 002 — One Platform. Every Payment.
+============================================================ */
+.section002 {
+  position: relative;
+  background: #fff;
+  padding: clamp(64px, 9vw, 120px) 0;
+}
+
+.s2-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5.5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.12px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.pill-orange { background: var(--redorange-300); }
+.pill-red    { background: var(--red-300); font-weight: 600; font-size: 11px; }
+
+.s2-title {
+  margin: clamp(20px, 3vw, 32px) 0 clamp(40px, 6vw, 80px);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  color: var(--icb-gray-600);
+  text-align: center;
+}
+
+/* ── section002 사진 카드 (Figma home2 디자인) ── */
+.s2-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.s2-card {
+  flex: 1 1 266px;
+  max-width: 266px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 카드 이미지: 위에서 페이드/슬라이드 등장 */
+.s2-card-img {
+  height: 207px;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--s2c-delay, 0s),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--s2c-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.s2-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+/* 카드 텍스트: 이미지보다 약간 뒤따라 등장 */
+.s2-card-title,
+.s2-card-desc {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--s2c-delay, 0s) + 0.18s),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--s2c-delay, 0s) + 0.18s);
+  will-change: opacity, transform;
+}
+
+.s2-card-desc {
+  transition-delay: calc(var(--s2c-delay, 0s) + 0.32s);
+}
+
+.s2-card.is-in .s2-card-img,
+.s2-card.is-in .s2-card-title,
+.s2-card.is-in .s2-card-desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.s2-card.is-in .s2-card-img img {
+  opacity: 1;
+}
+
+.s2-card-title {
+  margin: clamp(20px, 2.5vw, 28px) 0 12px;
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  color: #1b5166;
+  line-height: 1.2;
+}
+
+.s2-card-desc {
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #1b5166;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   Section 003 — Trust Indicators
+============================================================ */
+.section003 {
+  position: relative;
+  background: #fdf5ef;
+  padding: clamp(64px, 9vw, 120px) 0;
+  overflow: hidden;
+}
+
+.s3-inner {
+  max-width: 1135px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.count-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  margin-top: 64px;
+}
+
+.count-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  color: var(--icb-gray-500);
+}
+
+.count-num {
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.count-lbl {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.18px;
+  text-align: center;
+  margin: 0;
+}
+
+/* jeton-style reveal char */
+.reveal-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: inherit;
+  padding-bottom: 0.05em;
+}
+
+.reveal-char {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+
+.count-reveal.is-visible .reveal-char {
+  transform: translateY(0);
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  margin-top: 80px;
+  color: var(--redorange-500);
+}
+
+.count-row-item {
+  flex-direction: row !important;
+  gap: 25px !important;
+}
+
+.count-big {
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.count-row-lbl {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.18px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Section 004 + 005 — Card carousels (style from index.html)
+============================================================ */
+.section004,
+.section005 {
+  position: relative;
+  background: #fff;
+  padding: clamp(64px, 9vw, 120px) 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.s4-inner,
+.s5-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.s4-title,
+.s5-title {
+  margin: clamp(16px, 2vw, 24px) 0 16px;
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--icb-gray-500);
+  text-align: center;
+  max-width: 730px;
+  padding: 0 16px;
+}
+
+.s5-title { margin-top: 0; }
+
+.s4-sub,
+.s5-sub {
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--icb-gray-600);
+  margin: 0 0 12px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.scroll-down {
+  margin-top: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--icb-gray-400);
+  text-align: center;
+}
+
+/* embed-carousel — Figma 수정안: 영역을 위아래로 더 넓힘
+   v1: 970×580 (이전 970×360), v2: 1080×614 (이전 1080×462)
+   반응형: 작은 화면에서는 .ec-scene을 scale로 축소 */
+.embed-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1164px;
+  height: clamp(420px, 50vw, 580px);
+  margin: clamp(16px, 3vw, 32px) auto 0;
+  overflow: hidden;
+  perspective: 2600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+.embed-carousel--v2 {
+  max-width: 1256px;
+  height: clamp(460px, 53vw, 614px);
+}
+
+/* 좁은 화면 — scene을 비례 축소해 카드들이 잘리지 않게 */
+@media (max-width: 1100px) {
+  .ec-scene { transform: scale(0.85); }
+}
+@media (max-width: 860px) {
+  .ec-scene { transform: scale(0.7); }
+}
+@media (max-width: 640px) {
+  .ec-scene { transform: scale(0.55); }
+}
+
+.ec-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.ec-card {
+  position: absolute;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.2s ease,
+    filter 1.2s ease;
+  will-change: transform;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* index.html 카드 크기 적용 */
+.embed-carousel--v1 .ec-card {
+  width: 210px;
+  height: 360px;
+}
+
+.embed-carousel--v2 .ec-card {
+  width: 280px;
+  height: 360px;
+}
+
+.ec-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ec-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 42px;
+  object-fit: contain;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.embed-carousel--v2 .ec-icon {
+  top: 24px;
+  left: 32px;
+}
+
+.ec-overlay {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 50px;
+  color: #fff;
+  z-index: 5;
+  text-align: left;
+  pointer-events: none;
+}
+
+.embed-carousel--v2 .ec-overlay {
+  left: 32px;
+  right: 32px;
+}
+
+.ec-num {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.ec-title {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -1.12px;
+}
+
+.ec-reflection {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+/* ============================================================
+   Section 007 — Personal Remittance
+============================================================ */
+/* section007 — 반응형: Figma 1440:741 ≈ 0.5146 비율 */
+.section007 {
+  position: relative;
+  background: #1a1a1a;
+  height: clamp(560px, 51.46vw, 741px);
+  overflow: hidden;
+}
+
+/* Figma video2 프레임 — 반응형 풀-bleed:
+   프레임이 화면 너비를 꽉 채우고, 비디오는 프레임의 left:0(x축 0)에서 시작.
+   비디오 높이는 부모 높이에 맞춰 잘리는 영역으로 유지 (object-fit: cover) */
+.s7-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.s7-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top; /* 좌상단 기준 정렬 — 비디오 상단 보임 */
+  pointer-events: none;
+  /* section007 동영상: 1.1 스케일 확대 (좌상단 기준) */
+  transform: scale(1.1);
+  transform-origin: left top;
+}
+
+.s7-color {
+  position: absolute;
+  inset: 0;
+  background: #d9d9d9;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.s7-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(80px, 14vw, 200px) clamp(24px, 5.5vw, 80px) clamp(40px, 6vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--icb-gray-700);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16,1,0.3,1) var(--rd, 0s),
+    transform 0.7s cubic-bezier(0.16,1,0.3,1) var(--rd, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.s7-eyebrow {
+  margin: clamp(16px, 3vw, 32px) 0 0;
+  font-size: clamp(22px, 2.5vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--icb-gray-700);
+}
+
+.s7-title {
+  margin: 0;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: var(--icb-gray-700);
+  line-height: 1.1;
+}
+
+.s7-desc {
+  margin: 16px 0 0;
+  font-size: 16px;
+  letter-spacing: -0.16px;
+  color: var(--icb-gray-700);
+}
+
+.s7-stores {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+/* 회색(기본) → 컬러(호버) 크로스페이드 + 살짝 lift */
+.s7-store {
+  position: relative;
+  display: block;
+  width: 157px;
+  height: 46px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.s7-store img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.35s ease;
+}
+
+.s7-store-color { opacity: 0; }
+
+.s7-store:hover,
+.s7-store:focus-visible {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.s7-store:hover .s7-store-gray,
+.s7-store:focus-visible .s7-store-gray { opacity: 0; }
+
+.s7-store:hover .s7-store-color,
+.s7-store:focus-visible .s7-store-color { opacity: 1; }
+
+/* ============================================================
+   Section 008 — Footer
+============================================================ */
+.section008 {
+  background: #fbfafa;
+  border-top: 1px solid rgba(212, 212, 212, 0.3);
+  padding: clamp(28px, 4vw, 36px) clamp(24px, 5.5vw, 80px) 30px;
+}
+
+.s8-inner { max-width: 1280px; margin: 0 auto; }
+
+.s8-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px 86px;
+  align-items: flex-start;
+}
+
+.s8-logo img { height: 23px; width: auto; }
+
+.s8-h {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
+}
+
+.s8-col ul li + li { margin-top: 8px; }
+
+.s8-col a {
+  font-size: 13px;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.s8-col a:hover { color: #666; }
+
+.s8-divider {
+  border: 0;
+  height: 1px;
+  background: rgba(212, 212, 212, 0.5);
+  margin: 40px 0 16px;
+}
+
+.s8-copy {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-line-inner,
+  .reveal-char,
+  .reveal-up,
+  .intro-line,
+  .ec-card,
+  .s2-card-img,
+  .s2-card-title,
+  .s2-card-desc {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* ============================================================
+   Responsive (lightweight)
+============================================================ */
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .gnb-top { padding: 0 24px; }
+  .gnb-menu { gap: 28px; }
+  .s2-cards { gap: 16px; }
+  .s2-card { flex: 1 1 calc(50% - 8px); max-width: none; }
+  .count-row { flex-direction: column; gap: 32px; }
+}
+
+/* ── Small tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+  .gnb-actions { gap: 12px; }
+  .gnb-lang { padding: 6px 10px 5px 12px; }
+  .gnb-sub ul { gap: 24px; font-size: 12px; }
+  .s8-cols { gap: 32px 40px; }
+}
+
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
+  .gnb-menu { display: none; }
+  .gnb-sub { height: 48px; }
+  .gnb-sub ul { gap: 16px; font-size: 11px; }
+  .gnb.is-scrolled .gnb-sub { height: 0; }
+  .s2-cards { flex-direction: column; align-items: center; }
+  .s2-card { flex: 0 0 auto; width: 100%; max-width: 360px; }
+  .count-stack { gap: 56px; }
+  .s7-stores { gap: 12px; }
+}
