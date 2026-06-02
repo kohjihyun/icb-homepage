@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>section2-card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="./js/tailwind-config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="bg-white font-inter text-[#111] antialiased">
+
+  <div id="section2-card" class="s2c-wrap flex items-center justify-center w-full max-w-[1440px] mx-auto px-[160px] py-[80px] gap-[11px] flex-nowrap" data-name="section2-card">
+
+    <!-- Card 1: payment -->
+    <article class="s2c-card bg-[#f1f1f5] h-[464px] relative rounded-[8px] w-[272px] overflow-hidden" data-name="payment" style="--s2c-delay:0s">
+      <div class="absolute left-1/2 -translate-x-1/2 top-[81px] w-[130px] h-[130px]" data-name="011">
+        <span class="s2c-011-circle block w-full h-full rounded-full bg-[#BA2E2E]"></span>
+      </div>
+      <div class="absolute left-[24px] bottom-[50px] w-[218px]">
+        <p class="text-[#0b1e53] text-[32px] font-extrabold leading-[1.2] tracking-[-0.96px]">Cross-Border Payment</p>
+        <p class="mt-3 text-[#4d8dad] text-[16px] tracking-[-0.16px]">Integrated global payment infrastructure.</p>
+      </div>
+      <a href="#" class="absolute top-[16px] right-[16px] w-[46px] h-[46px]" aria-label="open">
+        <svg viewBox="0 0 46 46" fill="none" class="block w-full h-full"><circle cx="23" cy="23" r="20" fill="#fff"/><path d="M29.0943 19.0686L18.364 29.799L16.9497 28.3848L27.6801 17.6544L19.7605 17.6544L19.7782 15.6569H31.0919V26.9706L29.0943 26.9882L29.0943 19.0686Z" fill="#EA4109"/></svg>
+      </a>
+    </article>
+
+    <!-- Card 2: B2B -->
+    <article class="s2c-card bg-[#f1f1f5] h-[464px] relative rounded-[8px] w-[272px] overflow-hidden" data-name="B2B" style="--s2c-delay:0.15s">
+      <div class="absolute left-1/2 -translate-x-1/2 top-[89px] w-[143px] h-[118px]" data-name="012">
+        <span class="s2c-012-rect s2c-012-rect-a absolute left-0 top-0 w-[88px] h-[118px] bg-[#b90f59] rounded-tl-[16px] rounded-tr-[16px] rounded-bl-[1px]"></span>
+        <span class="s2c-012-rect s2c-012-rect-b absolute left-[55px] top-[51px] w-[88px] h-[67px] bg-[#b90f59] rounded-tl-[16px] rounded-tr-[16px]"></span>
+      </div>
+      <div class="absolute left-[24px] bottom-[50px] w-[218px]">
+        <p class="text-[#0b1e53] text-[32px] font-extrabold leading-[1.2] tracking-[-0.96px]">B2B Settlement</p>
+        <p class="mt-3 text-[#4d8dad] text-[16px] tracking-[-0.16px]">Fast and accurate B2B trade settlement.</p>
+      </div>
+      <a href="#" class="absolute top-[16px] right-[16px] w-[46px] h-[46px]" aria-label="open">
+        <svg viewBox="0 0 46 46" fill="none" class="block w-full h-full"><circle cx="23" cy="23" r="20" fill="#fff"/><path d="M29.0943 19.0686L18.364 29.799L16.9497 28.3848L27.6801 17.6544L19.7605 17.6544L19.7782 15.6569H31.0919V26.9706L29.0943 26.9882L29.0943 19.0686Z" fill="#EA4109"/></svg>
+      </a>
+    </article>
+
+    <!-- Card 3: card -->
+    <article class="s2c-card bg-[#f1f1f5] h-[464px] relative rounded-[8px] w-[272px] overflow-hidden" data-name="card" style="--s2c-delay:0.30s">
+      <div class="absolute left-1/2 -translate-x-1/2 top-[93px] w-[163px] h-[110px]" data-name="013">
+        <span class="s2c-013-rect block w-full h-full bg-[#cc1a3b] rounded-tl-[16px] rounded-tr-[16px]"></span>
+      </div>
+      <div class="absolute left-[24px] bottom-[50px] w-[196px]">
+        <p class="text-[#0b1e53] text-[32px] font-extrabold leading-[1.2] tracking-[-0.96px]">Prepaid<br />Card</p>
+        <p class="mt-3 text-[#4d8dad] text-[16px] tracking-[-0.16px]">Customized corporate prepaid solutions.</p>
+      </div>
+      <a href="#" class="absolute top-[16px] right-[16px] w-[46px] h-[46px]" aria-label="open">
+        <svg viewBox="0 0 46 46" fill="none" class="block w-full h-full"><circle cx="23" cy="23" r="20" fill="#fff"/><path d="M29.0943 19.0686L18.364 29.799L16.9497 28.3848L27.6801 17.6544L19.7605 17.6544L19.7782 15.6569H31.0919V26.9706L29.0943 26.9882L29.0943 19.0686Z" fill="#EA4109"/></svg>
+      </a>
+    </article>
+
+    <!-- Card 4: link -->
+    <article class="s2c-card bg-[#f1f1f5] h-[464px] relative rounded-[8px] w-[272px] overflow-hidden" data-name="link" style="--s2c-delay:0.45s">
+      <div class="s2c-014-shape absolute left-1/2 top-[96px] w-[196px] h-[105px]" data-name="014">
+        <svg viewBox="0 0 266 143" fill="none" xmlns="http://www.w3.org/2000/svg" class="block w-full h-full" preserveAspectRatio="none">
+          <path d="M143 71.5C143 110.988 110.988 143 71.5 143C32.0116 143 0 110.988 0 71.5C0 32.0116 32.0116 0 71.5 0C110.988 0 143 32.0116 143 71.5Z" fill="#B64345"/>
+          <path d="M266 71.5C266 110.988 233.988 143 194.5 143C155.012 143 123 110.988 123 71.5C123 32.0116 155.012 0 194.5 0C233.988 0 266 32.0116 266 71.5Z" fill="#B64345"/>
+        </svg>
+      </div>
+      <div class="absolute left-[24px] bottom-[50px] w-[196px]">
+        <p class="text-[#0b1e53] text-[32px] font-extrabold leading-[1.2] tracking-[-0.96px]">Payment<br />Link</p>
+        <p class="mt-3 text-[#4d8dad] text-[16px] tracking-[-0.16px]">Simple remote payment via shareable links.</p>
+      </div>
+      <a href="#" class="absolute top-[16px] right-[16px] w-[46px] h-[46px]" aria-label="open">
+        <svg viewBox="0 0 46 46" fill="none" class="block w-full h-full"><circle cx="23" cy="23" r="20" fill="#fff"/><path d="M29.0943 19.0686L18.364 29.799L16.9497 28.3848L27.6801 17.6544L19.7605 17.6544L19.7782 15.6569H31.0919V26.9706L29.0943 26.9882L29.0943 19.0686Z" fill="#EA4109"/></svg>
+      </a>
+    </article>
+
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
